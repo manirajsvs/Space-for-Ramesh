@@ -1,0 +1,8 @@
+*/.terraform
+*/terraform.exe
+*/terraform.tfstate*
+
+
+*/helm.exe
+*/eksctl.exe
+*/*.exe

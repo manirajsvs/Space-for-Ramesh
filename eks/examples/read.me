@@ -1,0 +1,16 @@
+kubectl apply -f nexus.yaml
+kubectl describe pod/nexus-86d7b9f6f8-p9ddd
+kubectl apply -f nexusservice.yaml
+kubectl get all
+kubectl apply -f aws-load-balancer-controller.yaml -n kube-system
+kubectl get all -n kube-system
+kubectl describe sa aws-load-balancer-controller -n kube-system
+kubectl annotate serviceaccount -n kube-system aws-load-balancer-controller eks.amazonaws.com/role-arn=arn:aws:iam::807526805131:role/cicd-k8s-portal-dev-cluster-alb-role
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller --namespace kube-system --set clusterName=cicd-k8s-portal-dev-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller  --set region=us-east-1 --set vpcId=vpc-0082290a201c78b7b
+kubectl get all -n kube-system
+kubectl logs -n kube-system pod/aws-load-balancer-controller-669d46d8d4-m4bgn
+kubectl get all -n kube-system
+kubectl apply -f ingressl.yaml
+kubectl get ingress
+kubectl logs -n kube-system pod/aws-load-balancer-controller-669d46d8d4-m4bgn
+kubectl describe ingress ingress-nexus
